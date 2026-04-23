@@ -1,0 +1,369 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Variables ── */
+:root {
+    --bg-base:     #0d1117;
+    --bg-surface:  #161b22;
+    --bg-raised:   #1c2128;
+    --bg-hover:    #21262d;
+    --border:      #30363d;
+    --border-light:#444c56;
+
+    --blue-400:    #58a6ff;
+    --blue-500:    #388bfd;
+    --blue-600:    #1f6feb;
+    --blue-dim:    #1d3a5f;
+
+    --teal-400:    #39d353;
+    --teal-dim:    #0d3320;
+
+    --purple-400:  #bc8cff;
+    --purple-dim:  #2d1f50;
+
+    --amber-400:   #e3b341;
+    --amber-dim:   #3d2e00;
+
+    --red-400:     #f85149;
+    --red-dim:     #3d1a1a;
+
+    --green-400:   #56d364;
+    --green-dim:   #122d1a;
+
+    --text-primary:   #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted:     #6e7681;
+
+    --font-sans:  'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono:  'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+}
+
+/* ── Base ── */
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+a { color: var(--blue-400); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Navbar ── */
+.navbar {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.logo-icon { color: var(--blue-400); font-size: 14px; }
+
+/* ── Botón Star Wars ── */
+.btn-fuerza {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-dim);
+    border: 1px solid var(--blue-600);
+    color: var(--blue-400);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-fuerza:hover { background: var(--blue-600); border-color: var(--blue-400); color: #fff; }
+
+.btn-fuerza.playing {
+    background: var(--purple-dim);
+    border-color: var(--purple-400);
+    color: var(--purple-400);
+}
+
+.fuerza-icon { font-size: 11px; }
+
+/* ── Contenedor principal ── */
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+/* ── Hero ── */
+.hero { text-align: center; padding: 60px 0 48px; }
+
+.hero-titulo {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+}
+
+.hero-sub { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 24px; }
+
+.hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.badge {
+    font-size: 12px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px; letter-spacing: 0.03em;
+}
+
+.badge-blue   { background: var(--blue-dim);   color: var(--blue-400);   border: 1px solid var(--blue-600); }
+.badge-teal   { background: var(--teal-dim);   color: var(--teal-400);   border: 1px solid #1a6e2e; }
+.badge-purple { background: var(--purple-dim); color: var(--purple-400); border: 1px solid #6e3db8; }
+
+/* ── Módulo card ── */
+.temario { display: flex; flex-direction: column; gap: 20px; }
+
+.modulo-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.modulo-card:hover { border-color: var(--blue-600); }
+
+.modulo-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 22px;
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--border);
+}
+
+.modulo-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--blue-dim); border: 1px solid var(--blue-600);
+    color: var(--blue-400); font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.modulo-titulo { font-size: 16px; font-weight: 600; color: var(--text-primary); flex: 1; }
+
+.modulo-count {
+    font-size: 12px; color: var(--text-muted);
+    background: var(--bg-hover); padding: 3px 10px;
+    border-radius: 12px; border: 1px solid var(--border);
+}
+
+/* ── Lista de lecciones ── */
+.leccion-lista { list-style: none; }
+
+.leccion-item { border-bottom: 1px solid var(--border); }
+.leccion-item:last-child { border-bottom: none; }
+
+.leccion-link {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 14px 22px; text-decoration: none;
+    transition: background 0.15s; gap: 12px;
+}
+
+.leccion-link:hover { background: var(--bg-hover); text-decoration: none; }
+
+.leccion-info { display: flex; flex-direction: column; gap: 3px; }
+
+.leccion-titulo { font-size: 15px; font-weight: 500; color: var(--blue-400); }
+
+.leccion-desc { font-size: 13px; color: var(--text-secondary); }
+
+.leccion-arrow { font-size: 20px; color: var(--text-muted); flex-shrink: 0; }
+
+/* ── Card genérica ── */
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.card-titulo {
+    font-size: 15px; font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 16px;
+}
+
+/* ── Bloques de código ── */
+.code-block {
+    background: var(--bg-base); border: 1px solid var(--border);
+    border-radius: var(--radius-md); padding: 18px; overflow-x: auto;
+    font-family: var(--font-mono); font-size: 14px; color: #e6edf3;
+    line-height: 1.6; white-space: pre;
+}
+
+.output-block {
+    background: var(--bg-base); border: 1px solid var(--border);
+    border-left: 3px solid var(--green-400); border-radius: var(--radius-sm);
+    padding: 14px 16px; font-family: var(--font-mono); font-size: 14px;
+    color: var(--green-400); white-space: pre;
+}
+
+/* ── Nota avanzada ── */
+.nota-avanzada {
+    display: flex; gap: 14px;
+    background: var(--blue-dim); border: 1px solid var(--blue-600);
+    border-radius: var(--radius-md); padding: 16px 18px;
+    margin-bottom: 20px; font-size: 14px;
+}
+
+.nota-icon { font-size: 18px; color: var(--blue-400); flex-shrink: 0; margin-top: 2px; }
+.nota-avanzada strong { color: var(--blue-400); display: block; margin-bottom: 4px; }
+.nota-avanzada p { color: var(--text-secondary); margin: 0; }
+
+/* ── Ejercicios ── */
+.ejercicio {
+    border-radius: var(--radius-md); padding: 18px 20px;
+    margin-bottom: 16px; border-left: 3px solid;
+}
+
+.ejercicio-leer     { background: var(--green-dim); border-left-color: var(--green-400); }
+.ejercicio-modificar{ background: var(--amber-dim); border-left-color: var(--amber-400); }
+.ejercicio-escribir { background: var(--red-dim);   border-left-color: var(--red-400);   }
+
+.ejercicio-header {
+    display: flex; align-items: center;
+    justify-content: space-between; margin-bottom: 10px;
+}
+
+.ejercicio-badge {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+}
+
+.ejercicio-num { font-size: 12px; color: var(--text-muted); }
+
+.ejercicio-instruccion {
+    font-size: 15px; font-weight: 500;
+    color: var(--text-primary); margin-bottom: 14px;
+}
+
+/* ── Monaco editor wrapper ── */
+.editor-wrapper {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden; margin-bottom: 10px;
+}
+
+.editor-bar {
+    display: flex; align-items: center;
+    justify-content: space-between; padding: 6px 12px;
+    background: var(--bg-raised); border-bottom: 1px solid var(--border);
+}
+
+.editor-lang { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+
+.btn-run {
+    background: var(--blue-600); color: #fff; border: none;
+    padding: 5px 14px; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-run:hover { background: var(--blue-500); }
+.btn-run:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+.monaco-container { height: 200px; }
+
+/* ── Output del ejercicio ── */
+.output-area {
+    background: var(--bg-base); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    font-family: var(--font-mono); font-size: 13px;
+    min-height: 40px; margin-bottom: 10px;
+}
+
+.output-placeholder { color: var(--text-muted); font-style: italic; }
+.output-success { color: var(--green-400); }
+.output-error   { color: var(--red-400); }
+
+/* ── Pista ── */
+.pista { display: flex; gap: 8px; font-size: 13px; color: var(--text-secondary); font-style: italic; }
+.pista-icon { font-size: 15px; flex-shrink: 0; }
+
+/* ── Recursos ── */
+.recursos-lista { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.recurso-link { font-size: 14px; color: var(--blue-400); word-break: break-all; }
+
+/* ── Cabecera de lección ── */
+.leccion-header { margin-bottom: 24px; }
+
+.modulo-breadcrumb {
+    font-size: 12px; font-weight: 700; color: var(--blue-400);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;
+}
+
+.leccion-h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.leccion-descripcion { font-size: 1.05rem; color: var(--text-secondary); }
+
+/* ── Navegación entre lecciones ── */
+.leccion-nav {
+    display: flex; gap: 12px;
+    justify-content: space-between; flex-wrap: wrap; margin-top: 32px;
+}
+
+.nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px; background: var(--bg-surface);
+    border: 1px solid var(--border); border-radius: var(--radius-md);
+    font-size: 14px; color: var(--text-primary); text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+    max-width: 240px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+
+.nav-btn:hover { background: var(--bg-hover); border-color: var(--blue-600); text-decoration: none; }
+.nav-index { color: var(--text-secondary); }
+
+/* ── Footer ── */
+.footer {
+    text-align: center; padding: 28px 24px;
+    color: var(--text-muted); font-size: 13px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 6px;
+}
+
+.footer-firma {
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .hero-titulo { font-size: 1.8rem; }
+    .fuerza-texto { display: none; }
+    .leccion-nav { flex-direction: column; }
+    .nav-btn { max-width: 100%; }
+}

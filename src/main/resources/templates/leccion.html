@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${leccion.title} + ' · Java Educativo'">Lección</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">&#9670;</span>
+            <span>Java Educativo</span>
+        </a>
+        <div class="nav-actions">
+            <button id="btn-fuerza" class="btn-fuerza">
+                <span class="fuerza-icon">&#9654;</span>
+                <span class="fuerza-texto">Que la fuerza te acompañe</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="main-container">
+
+    <header class="leccion-header">
+        <p class="modulo-breadcrumb" th:text="${leccion.modulo}">Módulo</p>
+        <h1 class="leccion-h1" th:text="${leccion.title}">Título</h1>
+        <p class="leccion-descripcion" th:text="${leccion.description}">Descripción</p>
+    </header>
+
+    <div th:if="${leccion.notaAvanzada}" class="nota-avanzada">
+        <span class="nota-icon">&#9432;</span>
+        <div>
+            <strong>Si ya conoces otro lenguaje</strong>
+            <p th:text="${leccion.notaAvanzada}"></p>
+        </div>
+    </div>
+
+    <section class="card">
+        <h2 class="card-titulo">Ejemplo</h2>
+        <pre class="code-block"><code th:text="${leccion.code}"></code></pre>
+    </section>
+
+    <section class="card">
+        <h2 class="card-titulo">Salida esperada</h2>
+        <pre class="output-block" th:text="${leccion.output}"></pre>
+    </section>
+
+    <section class="card" th:if="${not #lists.isEmpty(leccion.ejercicios)}">
+        <h2 class="card-titulo">Ejercicios</h2>
+
+        <div th:each="ej, ejStat : ${leccion.ejercicios}"
+             th:class="'ejercicio ' + ${ej.nivelCss}">
+
+            <div class="ejercicio-header">
+                <span class="ejercicio-badge" th:text="${ej.nivelLabel}">Nivel</span>
+                <span class="ejercicio-num" th:text="'#' + ${ejStat.index + 1}">#1</span>
+            </div>
+
+            <p class="ejercicio-instruccion" th:text="${ej.instruccion}"></p>
+
+            <textarea th:id="'code-src-' + ${ejStat.index}"
+                      style="display:none"
+                      th:text="${ej.codigoBase != null ? ej.codigoBase :
+                          '// Escribe tu solución aquí\npublic class Solucion {\n    public static void main(String[] args) {\n        // tu código\n    }\n}'}">
+            </textarea>
+
+            <div class="editor-wrapper">
+                <div class="editor-bar">
+                    <span class="editor-lang">Java</span>
+                    <button class="btn-run" th:attr="data-idx=${ejStat.index}">
+                        &#9654; Ejecutar
+                    </button>
+                </div>
+                <div class="monaco-container" th:id="'editor-' + ${ejStat.index}"></div>
+            </div>
+
+            <div class="output-area" th:id="'output-' + ${ejStat.index}">
+                <span class="output-placeholder">La salida aparecerá aquí al ejecutar...</span>
+            </div>
+
+            <p th:if="${ej.pista}" class="pista">
+                <span class="pista-icon">&#128161;</span>
+                <span th:text="${ej.pista}"></span>
+            </p>
+
+        </div>
+    </section>
+
+    <section class="card" th:if="${not #lists.isEmpty(leccion.recursos)}">
+        <h2 class="card-titulo">Recursos para profundizar</h2>
+        <ul class="recursos-lista">
+            <li th:each="url : ${leccion.recursos}">
+                <a th:href="${url}" target="_blank" rel="noopener"
+                   class="recurso-link" th:text="${url}"></a>
+            </li>
+        </ul>
+    </section>
+
+    <nav class="leccion-nav">
+        <a th:if="${anterior}" th:href="@{/leccion/{id}(id=${anterior.id})}" class="nav-btn nav-prev">
+            &#8249; <span th:text="${anterior.title}">Anterior</span>
+        </a>
+        <a href="/" class="nav-btn nav-index">&#8801; Índice</a>
+        <a th:if="${siguiente}" th:href="@{/leccion/{id}(id=${siguiente.id})}" class="nav-btn nav-next">
+            <span th:text="${siguiente.title}">Siguiente</span> &#8250;
+        </a>
+    </nav>
+
+</main>
+
+<footer class="footer">
+    <p>Proyecto educativo de Java · Código abierto · Desplegado en Railway</p>
+    <p class="footer-firma">Hecho con ❤️ por J. Francisco</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+<script th:src="@{/js/editor.js}"></script>
+<script th:src="@{/js/starwars.js}"></script>
+</body>
+</html>

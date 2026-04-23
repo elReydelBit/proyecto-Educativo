@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Educativo</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">&#9670;</span>
+            <span>Java Educativo</span>
+        </a>
+        <div class="nav-actions">
+            <button id="btn-fuerza" class="btn-fuerza" title="Reproducir tema de Star Wars">
+                <span class="fuerza-icon">&#9654;</span>
+                <span class="fuerza-texto">Que la fuerza te acompañe</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="main-container">
+
+    <header class="hero">
+        <h1 class="hero-titulo">Aprende Java desde cero</h1>
+        <p class="hero-sub">
+            <span th:text="${totalLecciones}">0</span> lecciones · ejercicios progresivos · editor interactivo
+        </p>
+        <div class="hero-badges">
+            <span class="badge badge-blue">Java 17</span>
+            <span class="badge badge-teal">Spring Boot 3</span>
+            <span class="badge badge-purple">5 módulos</span>
+        </div>
+    </header>
+
+    <section class="temario">
+        <div th:each="entry, iterStat : ${modulos}" class="modulo-card">
+
+            <div class="modulo-header">
+                <span class="modulo-num" th:text="${iterStat.index + 1}">1</span>
+                <h2 class="modulo-titulo" th:text="${entry.key}">Módulo</h2>
+                <span class="modulo-count"
+                      th:text="${#lists.size(entry.value)} + ' lecciones'">0 lecciones</span>
+            </div>
+
+            <ul class="leccion-lista">
+                <li th:each="leccion : ${entry.value}" class="leccion-item">
+                    <a th:href="@{/leccion/{id}(id=${leccion.id})}" class="leccion-link">
+                        <div class="leccion-info">
+                            <span class="leccion-titulo" th:text="${leccion.title}">Título</span>
+                            <span class="leccion-desc" th:text="${leccion.description}">Descripción</span>
+                        </div>
+                        <span class="leccion-arrow">&#8250;</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>Proyecto educativo de Java · Código abierto · Desplegado en Railway</p>
+    <p class="footer-firma">Hecho con ❤️ por J. Francisco</p>
+</footer>
+
+<script th:src="@{/js/starwars.js}"></script>
+</body>
+</html>
